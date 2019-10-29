@@ -40,3 +40,13 @@ sysinfo.txt
 Icon?
 ehthumbs.db
 Thumbs.db
+
+*.dll
+
+EsportGDProjet/Library/assetDatabase3
+
+*.graph
+
+EsportGDProjet/Library/metadata/4b/4ba2329b63d54f0187bcaa12486b1b0f
+
+*.log
