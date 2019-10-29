@@ -50,3 +50,7 @@ EsportGDProjet/Library/assetDatabase3
 EsportGDProjet/Library/metadata/4b/4ba2329b63d54f0187bcaa12486b1b0f
 
 *.log
+metadata
+PackageCache
+/EsportGDProjet/Library/*.dwlt
+/EsportGDProjet/Library/LastSceneManagerSetup.txt
