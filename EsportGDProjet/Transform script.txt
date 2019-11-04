@@ -1,0 +1,19 @@
+if (Input.GetKey(KeyCode.RightArrow))
+        {
+            rb.velocity = transform.right * speed;
+        }
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            rb.velocity = -transform.right * speed;
+        }
+        if (Input.GetKey(KeyCode.UpArrow))
+        {
+            rb.velocity = new Vector3(0, 0, speed);
+        }
+        if (Input.GetKey(KeyCode.DownArrow))
+        {
+            rb.velocity = new Vector3(0, 0, -speed);
+        }
+
+
+transform
