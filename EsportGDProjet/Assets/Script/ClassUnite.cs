@@ -7,7 +7,8 @@ public class ClassUnite
     private int pointDeVie;
     private int maxPointDeVie;
     private string nom;
-    private GameObject cible;
+    //private GameObject cibleObjet;
+    private Vector3 cible;
     private int attaque;
     private int defence;
     private int mouvementVitesse;
@@ -29,7 +30,7 @@ public class ClassUnite
         return nom;
     }
 
-    public GameObject GetCible()
+    public Vector3 GetCible()
     {
         return cible;
     }
@@ -66,7 +67,7 @@ public class ClassUnite
         nom = nouveauNom;
     }
 
-    public void SetCible(GameObject theCible)
+    public void SetCible(Vector3 theCible)
     {
         cible = theCible;
     }
@@ -89,22 +90,22 @@ public class ClassUnite
     //-----//
     // Constructeur
 
-    ClassUnite() : this("Inconu",0,0,0,0)
+    public ClassUnite() : this("Inconu",0,0,0,0)
     {
 
     }
 
-    ClassUnite(string _nom,int _MaxPointDeVie,int _attaque,int _defence,int _mouvementVitesse)
+    public ClassUnite(string _nom,int _MaxPointDeVie,int _attaque,int _defence,int _mouvementVitesse)
     {
         nom = _nom;
         maxPointDeVie = _MaxPointDeVie;
         attaque = _attaque;
         defence = _defence;
         mouvementVitesse = _mouvementVitesse;
-        cible = null;
+        cible = new Vector3(0,0,0);
     }
 
-    ClassUnite(string _nom) : this(_nom, 0, 0, 0, 0)
+    public ClassUnite(string _nom) : this(_nom, 0, 0, 0, 0)
     {
 
     }

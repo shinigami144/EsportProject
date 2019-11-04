@@ -13,13 +13,13 @@ public class ScriptDps : MonoBehaviour
     public Vector3 positionDestinataire;
     public GameObject projectile;
 
-
+/*
     private void Tirer(GameObject expediteur, GameObject destinataire,GameObject balle)
     {
         Vector3 trajectoire;
         ;
         positionExpediteur = expediteur.transform.position;
-        positionDestinataire = destinataire.GetComponent<Monstre>.GetCible();
+        //positionDestinataire = destinataire.GetComponent<Monstre>.GetCible();
 
         trajectoire.x = positionDestinataire.x - positionExpediteur.x;
         trajectoire.y = positionDestinataire.y - positionExpediteur.y;
@@ -30,8 +30,8 @@ public class ScriptDps : MonoBehaviour
     }
     private void infligerDegat(float atq, GameObject cible)
     {
-        pvCible = cible.GetComponent<Monstre>().ReceveDegat(atq);
-        pvCible -= atq;
+        //pvCible = cible.GetComponent<ScriptMonstre>().ReceveDegat(atq);
+       // pvCible -= atq;
     }
-
+    */
 }
