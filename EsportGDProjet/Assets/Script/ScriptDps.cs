@@ -9,29 +9,22 @@ public class ScriptDps : MonoBehaviour
     public float fireRate;
     public float atq;
     private float pvCible;
-    public Vector3 positionExpediteur;
-    public Vector3 positionDestinataire;
+    private Vector3 positionExpediteur;
+    private Vector3 positionDestinataire;
     public GameObject projectile;
+    private Vector3 trajectoire;
 
 
-    private void Tirer(GameObject expediteur, GameObject destinataire,GameObject balle)
-    {
-        Vector3 trajectoire;
-        ;
-        positionExpediteur = expediteur.transform.position;
-        positionDestinataire = destinataire.GetComponent<Monstre>.GetCible();
+    private void Tirer(GameObject expediteur, GameObject destinataire,GameObject balle)     //Fonction créé une trajectoire de tire  
+    {                                                                                       //et instantie un projectile sur        Vector3 trajectoire;
+        positionExpediteur = expediteur.transform.position;                                 //la trajectoire
+        positionDestinataire = destinataire.GetComponent<ScriptMonstre>().GetCible();
 
         trajectoire.x = positionDestinataire.x - positionExpediteur.x;
         trajectoire.y = positionDestinataire.y - positionExpediteur.y;
         trajectoire.z = positionDestinataire.z - positionExpediteur.z;
+
         projectile=Instantiate(balle, new Vector3(positionDestinataire.x, positionDestinataire.y, positionDestinataire.z), Quaternion.identity);
-        projectile.
-
+        projectile.GetComponent<Rigidbody>().AddForce(trajectoire);
     }
-    private void infligerDegat(float atq, GameObject cible)
-    {
-        pvCible = cible.GetComponent<Monstre>().ReceveDegat(atq);
-        pvCible -= atq;
-    }
-
 }
