@@ -15,6 +15,8 @@ public class ScriptGameManager : MonoBehaviour
         EquipeJoueur = new List<GameObject>();
         EquipeJoueur.Add(FindObjectOfType<ScriptHealer>().gameObject);
         EquipeMonstre.Add(FindObjectOfType<ScriptMonstre>().gameObject);
+        EquipeNpc.Add(FindObjectOfType<ScriptMouvementNPC>().gameObject);
+        EquipeJoueur.Add(FindObjectOfType<ScriptTank>().gameObject);
     }
 
     // Update is called once per frame
@@ -43,6 +45,7 @@ public class ScriptGameManager : MonoBehaviour
                 cible = EquipeJoueur[i];
             }
         }
+        Debug.Log("DA : TrouverElementPlusProche ->"+ cible);
         return cible;
     }
 }

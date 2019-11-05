@@ -7,11 +7,24 @@ public class ClassUnite
     private int pointDeVie;
     private int maxPointDeVie;
     private string nom;
-    //private GameObject cibleObjet;
+    private GameObject cibleObjet;
     private Vector3 cible;
     private int attaque;
     private int defence;
     private int mouvementVitesse;
+
+    public bool PrendreDegat(int degat)
+    {
+        bool enVie = true;
+        pointDeVie -= degat;
+        if(pointDeVie <= 0)
+        {
+            enVie = false;
+        }
+        return enVie;
+    }
+
+
 
 
     // GETTEUR
@@ -28,6 +41,11 @@ public class ClassUnite
     public string GetNom()
     {
         return nom;
+    }
+
+    public GameObject GetCibleObjet()
+    {
+        return cibleObjet;
     }
 
     public Vector3 GetCible()
@@ -65,6 +83,11 @@ public class ClassUnite
     public void SetNom(string nouveauNom)
     {
         nom = nouveauNom;
+    }
+
+    public void SetCibleObjet(GameObject gameObject)
+    {
+        cibleObjet = gameObject;
     }
 
     public void SetCible(Vector3 theCible)

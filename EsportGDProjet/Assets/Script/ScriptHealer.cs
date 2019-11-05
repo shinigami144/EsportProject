@@ -16,4 +16,16 @@ public class ScriptHealer : MonoBehaviour
     {
         
     }
+
+    public void PrendreDegat(int attaqueEnnemi)
+    {
+        int degat = attaqueEnnemi - unite.GetDefence();
+        if (!unite.PrendreDegat(degat))
+        {
+            // unite morte
+
+        }
+    }
+
+
 }

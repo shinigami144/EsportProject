@@ -7,8 +7,10 @@ public class ScriptCiblageAutre : MonoBehaviour
     // Start is called before the first frame update
     // Composant pour les NPC et Monstre
     bool estMonstre;
+    ScriptGameManager gm;
     void Start()
     {
+        gm = FindObjectOfType<ScriptGameManager>();
         if (GetComponent<ScriptMonstre>())
         {
             estMonstre = true;
@@ -23,13 +25,14 @@ public class ScriptCiblageAutre : MonoBehaviour
        
     }
 
+    public GameObject TrouverCible()
+    {
+       return  gm.TrouverElementPlusProche(transform.position);
+    }
+
     public Vector3 TrouvePositonCible()
     {
-        ScriptGameManager gm = FindObjectOfType<ScriptGameManager>();
-        Debug.Log(gm);
-        GameObject g = gm.TrouverElementPlusProche(transform.position);
-        Debug.Log(g);
-        return g.transform.position;
+        return TrouverCible().transform.position;
     }
 
     // Update is called once per frame
