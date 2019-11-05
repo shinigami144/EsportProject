@@ -133,5 +133,12 @@ public class ClassUnite
 
     }
     // ----- // 
+    // fonction utilitaire 
 
+    private void ReceiveDmg(GameObject cible)
+    {
+        this.pointDeVie -= cible.GetComponent<ScriptMonstre>().GetAttaque();
+    }
+
+    // ----- //
 }
