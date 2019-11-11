@@ -6,7 +6,6 @@ public class ScriptDps : MonoBehaviour
 {
 
     private ClassUnite unite;
-    public float fireRate;
     public float atq;
     private float pvCible;
     public Vector3 positionExpediteur;

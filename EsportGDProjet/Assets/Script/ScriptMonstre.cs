@@ -6,8 +6,10 @@ public class ScriptMonstre : MonoBehaviour
 {
     // Start is called before the first frame update
     ClassUnite unite;
+    int timeur;
     void Start()
     {
+        timeur = 0;
         unite = new ClassUnite();
         //unite.SetCible(GetComponent<ScriptCiblageAutre>().TrouvePositonCible());
     }
@@ -64,17 +66,22 @@ public class ScriptMonstre : MonoBehaviour
             Debug.Log("J'ai toucher la bonne cible");
         }
     }
-
+    /*
     private void OnCollisionStay(Collision collision)
     {
-        /* EXTREMEMENT RAPIDE !!! TROUVER MOYEN DE REDUIRE LA VITESSE */
+        /* EXTREMEMENT RAPIDE !!! TROUVER MOYEN DE REDUIRE LA VITESSE *\/
         if (collision.gameObject == unite.GetCibleObjet())
         {
-            // ATTAQUER
-            Debug.Log("J'ai toucher la bonne cible");
+            Debug.Log("DA : Test Reduction Temps");
+            if (timeur % 60 == 0)
+            {
+                timeur = 0;
+                Attaquer();
+            }
+            timeur += unite.GetVitesseAttaque() + 1;
         }
         //Debug.Log(collision.gameObject);
-    }
+    }*/
 
     /*--------------------------------*/
 

@@ -5,18 +5,19 @@ using UnityEngine;
 public class ScriptGameManager : MonoBehaviour
 {
     // Start is called before the first frame update
-    List<GameObject> EquipeMonstre;
-    List<GameObject> EquipeNpc;
-    List<GameObject> EquipeJoueur;
+    private List<GameObject> equipeMonstre;
+    private List<GameObject> equipeNpc;
+    private List<GameObject> equipeJoueur;
+    private GameObject mainCamera;
     void Start()
     {
-        EquipeMonstre = new List<GameObject>();
-        EquipeNpc = new List<GameObject>();
-        EquipeJoueur = new List<GameObject>();
-        EquipeJoueur.Add(FindObjectOfType<ScriptHealer>().gameObject);
-        EquipeMonstre.Add(FindObjectOfType<ScriptMonstre>().gameObject);
-        EquipeNpc.Add(FindObjectOfType<ScriptMouvementNPC>().gameObject);
-        EquipeJoueur.Add(FindObjectOfType<ScriptTank>().gameObject);
+        equipeMonstre = new List<GameObject>();
+        equipeNpc = new List<GameObject>();
+        equipeJoueur = new List<GameObject>();
+        equipeJoueur.Add(FindObjectOfType<ScriptHealer>().gameObject);
+        equipeMonstre.Add(FindObjectOfType<ScriptMonstre>().gameObject);
+        equipeNpc.Add(FindObjectOfType<ScriptMouvementNPC>().gameObject);
+        mainCamera = FindObjectOfType<ScriptCamera>().gameObject;
     }
 
     // Update is called once per frame
@@ -37,15 +38,26 @@ public class ScriptGameManager : MonoBehaviour
         GameObject cible = null;
         int distanceCalculer;
         int distance = 1000000;
-        for(int i = 0;i< EquipeJoueur.Count; i++)
+        for(int i = 0;i< equipeJoueur.Count; i++)
         {
-            distanceCalculer = (int)CalculerDistanceEntreDeuxPoint(vPosition, EquipeJoueur[i].transform.position);
+            distanceCalculer = (int)CalculerDistanceEntreDeuxPoint(vPosition, equipeJoueur[i].transform.position);
             if(distance > distanceCalculer)
             {
-                cible = EquipeJoueur[i];
+                cible = equipeJoueur[i];
             }
         }
         Debug.Log("DA : TrouverElementPlusProche ->"+ cible);
         return cible;
     }
+
+    public GameObject GetCamera()
+    {
+        return mainCamera;
+    } 
+
+    public GameObject GetJoueur()
+    {
+        return equipeJoueur[0];
+    }
 }
+

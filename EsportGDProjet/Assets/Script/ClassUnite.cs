@@ -12,6 +12,10 @@ public class ClassUnite
     private int attaque;
     private int defence;
     private int mouvementVitesse;
+    private int vitesseAttaque;
+    private int xp;
+    private int xpPourNiveauSuivant;
+    private int level;
 
     public bool PrendreDegat(int degat)
     {
@@ -24,8 +28,21 @@ public class ClassUnite
         return enVie;
     }
 
+    private void LevelUp()
+    {
+        if(xp >= xpPourNiveauSuivant)
+        {
+            level++;
+        }
+        xp -= xpPourNiveauSuivant;
+        xpPourNiveauSuivant += xpPourNiveauSuivant * 2;
+    }
 
-
+    public void XpGain(int value)
+    {
+        xp += value;
+        LevelUp();
+    }
 
     // GETTEUR
     public int GetPointDeVie()
@@ -67,6 +84,11 @@ public class ClassUnite
     {
         return mouvementVitesse;
     }
+    public int GetVitesseAttaque()
+    {
+        return vitesseAttaque;
+    }
+
     //-------//
     // SETTEUR
 
@@ -88,6 +110,7 @@ public class ClassUnite
     public void SetCibleObjet(GameObject gameObject)
     {
         cibleObjet = gameObject;
+        cible = gameObject.transform.position;
     }
 
     public void SetCible(Vector3 theCible)
@@ -110,15 +133,20 @@ public class ClassUnite
         this.mouvementVitesse = mouvementVitesse;
     }
 
+    public void SetVitesseAttaque(int _vitesseAttaque)
+    {
+        this.vitesseAttaque = _vitesseAttaque;
+    }
+
     //-----//
     // Constructeur
 
-    public ClassUnite() : this("Inconu",0,0,0,0)
+    public ClassUnite() : this("Inconu",0,0,0,0,0)
     {
 
     }
 
-    public ClassUnite(string _nom,int _MaxPointDeVie,int _attaque,int _defence,int _mouvementVitesse)
+    public ClassUnite(string _nom,int _MaxPointDeVie,int _attaque,int _defence,int _vitesseAttaque,int _mouvementVitesse)
     {
         nom = _nom;
         maxPointDeVie = _MaxPointDeVie;
@@ -126,9 +154,10 @@ public class ClassUnite
         defence = _defence;
         mouvementVitesse = _mouvementVitesse;
         cible = new Vector3(0,0,0);
+        vitesseAttaque = _vitesseAttaque;
     }
 
-    public ClassUnite(string _nom) : this(_nom, 0, 0, 0, 0)
+    public ClassUnite(string _nom) : this(_nom, 0, 0,0, 0, 0)
     {
 
     }

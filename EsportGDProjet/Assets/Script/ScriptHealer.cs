@@ -6,6 +6,7 @@ public class ScriptHealer : MonoBehaviour
 {
     // Start is called before the first frame update
     ClassUnite unite;
+    ScriptGameManager gm;
     void Start()
     {
         unite = new ClassUnite();
@@ -22,9 +23,17 @@ public class ScriptHealer : MonoBehaviour
         int degat = attaqueEnnemi - unite.GetDefence();
         if (!unite.PrendreDegat(degat))
         {
-            // unite morte
-
+            if (GetComponent<ScriptMouvementNPC>())
+            {
+                // supprimer de la liste 
+                Destroy(this);
+            }
+            else if (GetComponent<MovementPlayer>())
+            {
+                // GAME  OVER
+            }
         }
+
     }
 
 

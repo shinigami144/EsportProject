@@ -20,7 +20,7 @@ public class MovementPlayer : MonoBehaviour
     {
         if (controleJoueur.isGrounded)
         {
-            movementDirection = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("vertical"));
+            movementDirection = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
             movementDirection = movementDirection * movementSpeed;
         }
         movementDirection.y -= 10f * Time.deltaTime;
