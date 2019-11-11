@@ -13,6 +13,7 @@ public class MovementPlayer : MonoBehaviour
     void Start()
     {
         controleJoueur = GetComponent<CharacterController>();
+
     }
 
     // Update is called once per frame
