@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ScriptCamera : MonoBehaviour
+public class ProjectilleScript : MonoBehaviour
 {
-    private RaycastHit rayon;
     // Start is called before the first frame update
+    private int attaque;
     void Start()
     {
         
@@ -17,4 +17,12 @@ public class ScriptCamera : MonoBehaviour
         
     }
 
+    public int GetAttaque()
+    {
+        return attaque;
+    }
+    public void SetAttaque(int atk)
+    {
+        attaque = atk;
+    }
 }

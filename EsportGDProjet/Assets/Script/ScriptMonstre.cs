@@ -55,6 +55,15 @@ public class ScriptMonstre : MonoBehaviour
     // ----------
 
     
+    public void TakeDegat(int attaqueEnnemie)
+    {
+        int damage = attaqueEnnemie - unite.GetDefence();
+        unite.SetPointDeVie(unite.GetPointDeVie() - damage);
+        if(unite.GetPointDeVie() <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
 
     /* Collision avec evironement */
 
@@ -64,6 +73,11 @@ public class ScriptMonstre : MonoBehaviour
         {
             // ATTAQUER
             Debug.Log("J'ai toucher la bonne cible");
+        }
+        if(collision.gameObject.GetComponent<ProjectilleScript>())
+        {
+            TakeDegat(collision.gameObject.GetComponent<ProjectilleScript>().GetAttaque());
+            Destroy(collision.gameObject);
         }
     }
     /*

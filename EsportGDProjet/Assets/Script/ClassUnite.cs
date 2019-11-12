@@ -166,7 +166,7 @@ public class ClassUnite
 
     private void ReceiveDmg(GameObject cible)
     {
-        this.pointDeVie -= cible.GetComponent<ScriptMonstre>().GetAttaque();
+        //this.pointDeVie -= cible.GetComponent<ScriptMonstre>().GetAttaque();
     }
 
     // ----- //

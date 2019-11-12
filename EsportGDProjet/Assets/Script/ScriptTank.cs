@@ -6,7 +6,7 @@ public class ScriptTank : MonoBehaviour
 {
     public int distDeTaunt = 10;
     GameObject[] monstres = new GameObject[5];
-
+    /*
     //Fonction qui renvoie les dégats
     public void DefenseEpineuse()
     {
@@ -27,5 +27,5 @@ public class ScriptTank : MonoBehaviour
                 monstre.SetCible(this);
             }
         }
-    }
+    }*/
 }

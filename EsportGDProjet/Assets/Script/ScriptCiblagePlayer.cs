@@ -12,6 +12,38 @@ public class ScriptCiblagePlayer : MonoBehaviour
         
     }
 
+    private void ActiveAction(Vector3 positionAttaquer)
+    {
+        if( GetComponent<ScriptTank>() != null)
+        {
+            //
+        }
+        else if (GetComponent<ScriptHealer>() != null)
+        {
+            
+        }
+        else
+        {
+            GetComponent<ScriptDps>().Tirer(positionAttaquer);
+        }
+    }
+
+    private void ActiveAction(GameObject objetAttaquer)
+    {
+        if (GetComponent<ScriptTank>() != null)
+        {
+
+        }
+        else if (GetComponent<ScriptHealer>() != null)
+        {
+
+        }
+        else
+        {
+            GetComponent<ScriptDps>().Tirer(objetAttaquer.transform.position);
+        }
+    }
+
     private void FixedUpdate()
     {
         if (Input.GetMouseButtonDown(0))
@@ -19,19 +51,27 @@ public class ScriptCiblagePlayer : MonoBehaviour
             Ray rayon = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(rayon, out toucherRayon)){
                 Debug.Log(toucherRayon.collider);
-                // si sol toucher -> action on position;
-                // si NPC toucher -> Heal si healer sinon rien
-                // si Monstre toucher -> action de combat
-                // si player toucher -> rien 
+                Debug.Log(toucherRayon.point);
+                // collision et position de colision;
+                if(toucherRayon.collider.name == "Plane")
+                {
+                    Debug.Log("Point");
+                    ActiveAction(toucherRayon.point);
+                }
+                else
+                {
+
+                    ActiveAction(toucherRayon.collider.gameObject);
+                }
+                // activer action
             }
-            // activer raycast 
-            // fond object toucher
-            // recentrer son y 
-            // activer son action
+            
         }
     }
     // Update is called once per frame
     void Update()
     {
     }
+
+    
 }

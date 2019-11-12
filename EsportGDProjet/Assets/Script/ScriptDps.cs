@@ -6,24 +6,41 @@ public class ScriptDps : MonoBehaviour
 {
 
     private ClassUnite unite;
-    public float atq;
-    private float pvCible;
-    private Vector3 positionExpediteur;
-    private Vector3 positionDestinataire;
     public GameObject projectile;
-    private Vector3 trajectoire;
 
 
-    private void Tirer(GameObject expediteur, GameObject destinataire,GameObject balle)     //Fonction créé une trajectoire de tire  
-    {                                                                                       //et instantie un projectile sur        Vector3 trajectoire;
-        positionExpediteur = expediteur.transform.position;                                 //la trajectoire
-        positionDestinataire = destinataire.GetComponent<ScriptMonstre>().GetCible();
+    private void Start()
+    {
+        
+    }
 
-        trajectoire.x = positionDestinataire.x - positionExpediteur.x;
-        trajectoire.y = positionDestinataire.y - positionExpediteur.y;
-        trajectoire.z = positionDestinataire.z - positionExpediteur.z;
 
-        projectile=Instantiate(balle, new Vector3(positionDestinataire.x, positionDestinataire.y, positionDestinataire.z), Quaternion.identity);
-        projectile.GetComponent<Rigidbody>().AddForce(trajectoire);
+
+    public void Tirer(Vector3 ouTirer)
+    {
+        Vector3 _direction = new Vector3(0, 0, 0);
+        for(int i = 0;i< 3; i++) {
+            if(ouTirer[i] > transform.position[i])
+            {
+                _direction[i] = 1;
+            }
+            else if (ouTirer[i] < transform.position[i])
+            {
+                _direction[i] = -1;
+            }
+            else
+            {
+                _direction[i] = 0;
+            }
+        }
+        _direction.y = 1;
+        //Vector3 direction = ouTirer - transform.position;
+        Vector3 force = transform.position;
+        force.y = 0;
+        GameObject p = Instantiate(projectile);
+        p.transform.position = force + _direction;
+        force = new Vector3(ouTirer.x - transform.position.x, 0, ouTirer.z - transform.position.z);
+        p.GetComponent<Rigidbody>().AddForce((ouTirer-transform.position)*5); // reduction au pgcd pour eviter les difference de pousser
+        
     }
 }
