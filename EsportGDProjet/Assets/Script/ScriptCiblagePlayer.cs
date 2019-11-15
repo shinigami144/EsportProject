@@ -20,7 +20,7 @@ public class ScriptCiblagePlayer : MonoBehaviour
         }
         else if (GetComponent<ScriptHealer>() != null)
         {
-            
+            GetComponent<ScriptHealer>().PoserPiege(positionAttaquer);
         }
         else
         {
@@ -55,8 +55,9 @@ public class ScriptCiblagePlayer : MonoBehaviour
                 // collision et position de colision;
                 if(toucherRayon.collider.name == "Plane")
                 {
-                    Debug.Log("Point");
+                    Debug.Log("Point = " + toucherRayon.point + " Mouse Position " + Input.mousePosition);
                     ActiveAction(toucherRayon.point);
+
                 }
                 else
                 {

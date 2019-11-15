@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class ScriptPiege : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private int atq;
 
-    // Update is called once per frame
-    void Update()
+    public int GetAtq()
     {
-        
+        return atq;
+    }
+    
+    public void SetAtq(int _atq)
+    {
+        atq= _atq;
     }
 }

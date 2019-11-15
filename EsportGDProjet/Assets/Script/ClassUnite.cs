@@ -28,20 +28,30 @@ public class ClassUnite
         return enVie;
     }
 
-    private void LevelUp()
+    public bool LevelUp(int value)
     {
-        if(xp >= xpPourNiveauSuivant)
+        bool levelUp = false;
+        xp += value;
+        if(xp> xpPourNiveauSuivant)
         {
             level++;
+            xp -= xpPourNiveauSuivant;
+            xpPourNiveauSuivant *= (maxPointDeVie * xpPourNiveauSuivant);
+            levelUp =  true;
         }
-        xp -= xpPourNiveauSuivant;
-        xpPourNiveauSuivant += xpPourNiveauSuivant * 2;
+        return levelUp;
+        
+        
     }
 
-    public void XpGain(int value)
+    public int getLevel()
     {
-        xp += value;
-        LevelUp();
+        return level;
+    }
+
+    public int GetXp()
+    {
+        return xp;
     }
 
     // GETTEUR
@@ -94,6 +104,10 @@ public class ClassUnite
 
     public void SetPointDeVie(int nouveauPointDeVie)
     {
+        if(nouveauPointDeVie > maxPointDeVie)
+        {
+            pointDeVie = maxPointDeVie;
+        }
         pointDeVie = nouveauPointDeVie;
     }
 
@@ -150,6 +164,7 @@ public class ClassUnite
     {
         nom = _nom;
         maxPointDeVie = _MaxPointDeVie;
+        pointDeVie = _MaxPointDeVie;
         attaque = _attaque;
         defence = _defence;
         mouvementVitesse = _mouvementVitesse;
@@ -161,6 +176,21 @@ public class ClassUnite
     {
 
     }
+
+    public ClassUnite(ClassUnite _autreClassUnite)
+    {
+        maxPointDeVie = _autreClassUnite.GetMaxPointDeVie();
+        pointDeVie = maxPointDeVie;
+        attaque = _autreClassUnite.attaque;
+        defence = _autreClassUnite.defence;
+        mouvementVitesse = _autreClassUnite.mouvementVitesse;
+        vitesseAttaque = _autreClassUnite.vitesseAttaque;
+        xp = _autreClassUnite.xp;
+        xpPourNiveauSuivant = _autreClassUnite.xpPourNiveauSuivant;
+        level = _autreClassUnite.level;
+    }
+
+
     // ----- // 
     // fonction utilitaire 
 

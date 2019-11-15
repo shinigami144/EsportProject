@@ -4,28 +4,37 @@ using UnityEngine;
 
 public class ScriptTank : MonoBehaviour
 {
-    public int distDeTaunt = 10;
-    GameObject[] monstres = new GameObject[5];
-    /*
-    //Fonction qui renvoie les dégats
-    public void DefenseEpineuse()
+    private int distDeTaunt = 10;
+    private ClassUnite unite;
+    private void Start()
     {
-        if (this.ReceivingDmg(monstre))
+        unite = new ClassUnite();
+    }
+    //fonction qui renvoie les dégats
+    public void defenseEpineuse(ScriptMonstre monstre)
+    {
+        monstre.takeDmgFromTank(unite.GetDefence());
+    }
+
+    public void GainExperience(int nombredXP)
+    {
+        if (unite.LevelUp(nombredXP))
         {
-            foreach(GameObject monstre.GetCible(this) in monstres){
-                monstre.ReceiveDmg(this);
-            }
+
+            unite.SetAttaque(unite.GetAttaque() + Random.Range(0, 3));
+            unite.SetDefence(unite.GetDefence() + Random.Range(3, 5));
+            unite.SetMaxPointDeVie(unite.GetMaxPointDeVie() + Random.Range(4, 6));
+            unite.SetMouvementVitesse(unite.GetMouvemenetVitesse() + Random.Range(0, 2));
+            unite.SetVitesseAttaque(unite.GetVitesseAttaque() + Random.Range(0, 2));
         }
     }
 
-    //Fonction qui taunt
-    public void Taunt()
+    //fonction qui taunt
+    public void Taunt(ScriptMonstre monstre)
     {
-        foreach(GameObject monstre in monstres){
-            if (Vector3.Distance(this.transform.position,monstre.transform.position)<distDeTaunt)
-            {
-                monstre.SetCible(this);
-            }
+        if (Vector3.Distance(this.transform.position, monstre.transform.position) < distDeTaunt)
+        {
+            monstre.GetUnite().SetCibleObjet(gameObject);
         }
-    }*/
+    }
 }

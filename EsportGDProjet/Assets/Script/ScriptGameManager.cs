@@ -9,15 +9,21 @@ public class ScriptGameManager : MonoBehaviour
     private List<GameObject> equipeNpc;
     private List<GameObject> equipeJoueur;
     private GameObject mainCamera;
+    public GameObject monstre;
+    public GameObject hero;
+    public GameObject PrefabProjectille;
+    public GameObject PrefabPiege;
+
+
     void Start()
     {
         equipeMonstre = new List<GameObject>();
         equipeNpc = new List<GameObject>();
         equipeJoueur = new List<GameObject>();
-        equipeJoueur.Add(FindObjectOfType<ScriptHealer>().gameObject);
-        equipeMonstre.Add(FindObjectOfType<ScriptMonstre>().gameObject);
-        equipeNpc.Add(FindObjectOfType<ScriptMouvementNPC>().gameObject);
-        mainCamera = FindObjectOfType<ScriptCamera>().gameObject;
+        //equipeJoueur.Add(FindObjectOfType<ScriptHealer>().gameObject);
+        //equipeMonstre.Add(FindObjectOfType<ScriptMonstre>().gameObject);
+        //equipeNpc.Add(FindObjectOfType<ScriptMouvementNPC>().gameObject);
+        //mainCamera = FindObjectOfType<ScriptCamera>().gameObject;
     }
 
     // Update is called once per frame
@@ -46,7 +52,7 @@ public class ScriptGameManager : MonoBehaviour
                 cible = equipeJoueur[i];
             }
         }
-        Debug.Log("DA : TrouverElementPlusProche ->"+ cible);
+        //Debug.Log("DA : TrouverElementPlusProche ->"+ cible);
         return cible;
     }
 
@@ -58,6 +64,64 @@ public class ScriptGameManager : MonoBehaviour
     public GameObject GetJoueur()
     {
         return equipeJoueur[0];
+    }
+
+    public void CreateMonstre()
+    {
+        int nbMonstre=5;
+        
+        for (int i = 0; i < nbMonstre; i++)
+        {
+            GameObject m = Instantiate(monstre);
+            equipeMonstre.Add(m);
+            m.transform.position = m.transform.position + new Vector3(0+i*3, 0, 0+i*3);
+        }
+    }
+
+    public void MonstreMeure(int levelMonstre)
+    {
+        foreach (GameObject elem in equipeJoueur)
+        {
+            if (elem.GetComponent<ScriptHealer>())
+            {
+                elem.GetComponent<ScriptHealer>().GainExperience(15*levelMonstre);
+            }
+            else if (elem.GetComponent<ScriptTank>())
+            {
+                elem.GetComponent<ScriptTank>().GainExperience(15 * levelMonstre);
+            }
+            else if (elem.GetComponent<ScriptDps>())
+            {
+                elem.GetComponent<ScriptDps>().GainExperience(15 * levelMonstre);
+            }
+        }
+    }
+
+    public void InitSceneDps()
+    {
+        Vector3 heroPos = new Vector3(0, 0, 0);
+        GameObject h = Instantiate(hero);
+        h.transform.position = heroPos;
+        h.AddComponent<ScriptDps>();
+        h.GetComponent<ScriptDps>().projectile = PrefabProjectille;
+        equipeJoueur.Add(h);
+        CreateMonstre();
+    }
+
+    public void InitSceneTank()
+    {
+        InitSceneDps();
+    }
+
+    public void InitSceneHealer()
+    {
+        Vector3 heroPos = new Vector3(0, 0, 0);
+        GameObject h = Instantiate(hero);
+        h.transform.position = heroPos;
+        h.AddComponent<ScriptHealer>();
+        h.GetComponent<ScriptHealer>().piege = PrefabPiege;
+        equipeJoueur.Add(h);
+        CreateMonstre();
     }
 }
 
