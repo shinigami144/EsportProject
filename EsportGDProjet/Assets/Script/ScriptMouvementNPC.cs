@@ -5,34 +5,73 @@ using UnityEngine.AI;
 
 public class ScriptMouvementNPC : MonoBehaviour
 {
-    bool isPartenaire = true;
-    float distanceMin = 5;
+    bool isPartenaire;
+    float distanceMin;
     public NavMeshAgent agent;
-    
+    private ScriptGameManager gm;
 
-    void NpcFollow()
+    private void Start()
     {
+        gm = FindObjectOfType<ScriptGameManager>();
+        isPartenaire = false;
+        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+        distanceMin = 7;
         agent = this.GetComponent<NavMeshAgent>();
-
-        if (agent == null)
-        {
-            Debug.LogError("Le component NavMeshAgent n'est pas attache a " + gameObject.name);
-        }
-        else
-        {
-            MoveToTarget();
-        }
+        agent.speed = GetComponent<ClassUnite>().GetMouvemenetVitesse();
     }
+
+    
     private void MoveToTarget()
     //Fonction qui permet de se diriger vers la cible choisie
     {
         Vector3 targetVector = agent.GetComponent<ScriptCiblageAutre>().TrouvePositonCible();
-        //Debug.Log("Monstre numero " + GetComponent<ScriptMonstre>().GetUnite().GetNom() + " : " + targetVector); ;
-        agent.SetDestination(targetVector);
+        if (Vector3.Distance(agent.transform.position,targetVector)>distanceMin)
+        {
+            agent.SetDestination(targetVector);
+        }
     }
-
     private void Update()
     {
-        NpcFollow();
+
+        if (isPartenaire == true)
+        {
+            MoveToTarget();
+        }
+        else
+        {
+           
+        }
     }
+
+    public bool InHeroTeam()
+    {
+        return isPartenaire;
+    }
+
+    public void SetInHeroTeam(bool inTeam)
+    {
+        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        isPartenaire = inTeam;
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            if (GetComponent<ScriptDps>()|| isPartenaire == false)
+            {
+                gm.LoadDpsTraining(GetComponent<ClassUnite>().getLevel());
+            }
+            else if(GetComponent<ScriptTank>()|| isPartenaire == false)
+            {
+
+            }
+            else if(GetComponent<ScriptHealer>() || isPartenaire == false)
+            {
+
+            }
+        }
+    }
+
+
 }

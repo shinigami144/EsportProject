@@ -9,38 +9,44 @@ public class ScriptMonstre : MonoBehaviour
     int timeur;
     private static int NUMBER_MONSTER;
     ScriptGameManager GameManager;
+    bool taunted;
     void Start()
     {
         List<int> lstat = new List<int>();
         timeur = 0;
-        unite = new ClassUnite("Monstre" + NUMBER_MONSTER.ToString(), 75, 25, 5, 5, 3);
+        unite = gameObject.AddComponent<ClassUnite>();
+        unite.SetNom("Monstre" + NUMBER_MONSTER.ToString());
+        unite.SetMaxPointDeVie(75);
+        unite.SetAttaque(25);
+        unite.SetDefence(5);
+        unite.SetMouvementVitesse(5);
+        unite.SetVitesseAttaque(3);
         NUMBER_MONSTER++;
         GameManager = FindObjectOfType<ScriptGameManager>();
+        taunted = false;
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        unite.SetCibleObjet(GetComponent<ScriptCiblageAutre>().TrouverCible());
+        if (taunted == false)
+        {
+            Debug.Log("Taunt");
+            unite.SetCibleObjet(GetComponent<ScriptCiblageAutre>().TrouverCible());
+            
+        }
         unite.SetCible(unite.GetCibleObjet().transform.position);
-        Debug.Log(unite.GetCibleObjet());
+        Debug.Log("Cible " + unite.GetCibleObjet().name);
+
     }
 
-    public void Attaquer()
+    public void Attaquer(GameObject cible)
     {
+        ClassUnite n = unite.GetComponent<ClassUnite>();
+        int degat =unite.GetAttaque() -  unite.GetComponent<ClassUnite>().GetDefence();
+        cible.GetComponent<ClassUnite>().PrendreDegat(degat);
 
-        if (unite.GetCibleObjet().GetComponent<ScriptDps>() != null)
-        { // dps
-            unite.GetCibleObjet().GetComponent<ScriptDps>();
-        }
-        else if (unite.GetCibleObjet().GetComponent<ScriptTank>() != null)
-        { // tank
-            unite.GetCibleObjet().GetComponent<ScriptTank>();
-        }
-        else
-        { //  healer
-            unite.GetCibleObjet().GetComponent<ScriptHealer>().PrendreDegat(unite.GetAttaque());
-        }
     }
 
     public void takeDmgFromTank(int tankDef)
@@ -73,11 +79,17 @@ public class ScriptMonstre : MonoBehaviour
         }
     }
 
+    public void BeTaunt()
+    {
+        taunted = true;
+    }
+
     /* Collision avec evironement */
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject == unite.GetCibleObjet())
+        
+        if (collision.gameObject.GetComponent<ScriptMouvementNPC>() || collision.gameObject.GetComponent<MovementPlayer>())
         {
             // ATTAQUER
             Debug.Log("J'ai toucher la bonne cible");

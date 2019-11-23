@@ -9,20 +9,20 @@ public class ScriptCiblagePlayer : MonoBehaviour
     ScriptGameManager gm;
     void Start()
     {
-        
+       
     }
 
     private void ActiveAction(Vector3 positionAttaquer)
     {
         if( GetComponent<ScriptTank>() != null)
         {
-            //
+            // RIEN POUR L INSTANT
         }
         else if (GetComponent<ScriptHealer>() != null)
         {
             GetComponent<ScriptHealer>().PoserPiege(positionAttaquer);
         }
-        else
+        else if(GetComponent<ScriptDps>())
         {
             GetComponent<ScriptDps>().Tirer(positionAttaquer);
         }
@@ -32,16 +32,17 @@ public class ScriptCiblagePlayer : MonoBehaviour
     {
         if (GetComponent<ScriptTank>() != null)
         {
-
+            GetComponent<ScriptTank>().Taunt(objetAttaquer);
         }
         else if (GetComponent<ScriptHealer>() != null)
         {
-
+            GetComponent<ScriptHealer>().Heal(objetAttaquer);
         }
-        else
+        else if(GetComponent<ScriptDps>())
         {
             GetComponent<ScriptDps>().Tirer(objetAttaquer.transform.position);
         }
+        
     }
 
     private void FixedUpdate()
@@ -50,28 +51,22 @@ public class ScriptCiblagePlayer : MonoBehaviour
         {
             Ray rayon = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(rayon, out toucherRayon)){
-                Debug.Log(toucherRayon.collider);
-                Debug.Log(toucherRayon.point);
-                // collision et position de colision;
-                if(toucherRayon.collider.name == "Plane")
+                if (toucherRayon.collider.name == "Plane")
                 {
-                    Debug.Log("Point = " + toucherRayon.point + " Mouse Position " + Input.mousePosition);
                     ActiveAction(toucherRayon.point);
-
                 }
                 else
                 {
-
                     ActiveAction(toucherRayon.collider.gameObject);
                 }
-                // activer action
-            }
-            
-        }
+            } 
+        } 
     }
+
     // Update is called once per frame
     void Update()
     {
+        
     }
 
     

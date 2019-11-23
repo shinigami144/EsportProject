@@ -11,7 +11,14 @@ public class ScriptHealer : MonoBehaviour
     public GameObject piege;
     void Start()
     {
-        unite = new ClassUnite("Hero",85,15,5,8,10);
+        unite = gameObject.AddComponent<ClassUnite>();
+        unite.SetNom(gameObject.name);
+        unite.SetAttaque(15);
+        unite.SetDefence(5);
+        unite.SetMaxPointDeVie(85);
+        unite.SetPointDeVie(40);
+        unite.SetVitesseAttaque(8);
+        unite.SetMouvementVitesse(10);
     }
 
     // Update is called once per frame
@@ -41,42 +48,16 @@ public class ScriptHealer : MonoBehaviour
 
     public void Heal(GameObject cible)
     {
-        if (cible.GetComponent<ScriptDps>() != null)
-        { // dps
-            cible.GetComponent<ScriptDps>();
-        }
-        else if (cible.GetComponent<ScriptTank>() != null)
-        { // tank
-            cible.GetComponent<ScriptTank>();
-        }
-        else
-        { //  healer
-            cible.GetComponent<ScriptHealer>().getHeal(unite.GetAttaque());
-        }
+        //Debug.Log("HEAL");
+        ClassUnite cibleUnite = cible.GetComponent<ClassUnite>();
+        cibleUnite.SetPointDeVie(cibleUnite.GetPointDeVie()+unite.GetAttaque());
     }
 
-    public void PrendreDegat(int attaqueEnnemi)
+    private void OnCollisionEnter(Collision collision)
     {
-        int degat = attaqueEnnemi - unite.GetDefence();
-        if (!unite.PrendreDegat(degat))
+        if (collision.gameObject.GetComponent<ScriptMonstre>())
         {
-            if (GetComponent<ScriptMouvementNPC>())
-            {
-                // supprimer de la liste 
-                Destroy(this);
-            }
-            else if (GetComponent<MovementPlayer>())
-            {
-                // GAME  OVER
-            }
+            collision.gameObject.GetComponent<ScriptMonstre>().Attaquer(gameObject);
         }
-
     }
-
-    public void GetHeal(int soinValeur)
-    {
-        unite.SetPointDeVie(unite.GetPointDeVie() + soinValeur);
-    }
-
-
 }

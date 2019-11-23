@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ClassUnite
+public class ClassUnite : MonoBehaviour
 {
     private int pointDeVie;
     private int maxPointDeVie;
@@ -16,6 +16,15 @@ public class ClassUnite
     private int xp;
     private int xpPourNiveauSuivant;
     private int level;
+    public void Start()
+    {
+        
+    }
+
+    public void Update()
+    {
+        
+    }
 
     public bool PrendreDegat(int degat)
     {
@@ -42,6 +51,11 @@ public class ClassUnite
         return levelUp;
         
         
+    }
+
+    public int GetXpNiveauSuivant()
+    {
+        return xpPourNiveauSuivant;
     }
 
     public int getLevel()
@@ -104,16 +118,21 @@ public class ClassUnite
 
     public void SetPointDeVie(int nouveauPointDeVie)
     {
-        if(nouveauPointDeVie > maxPointDeVie)
+        if(nouveauPointDeVie >= maxPointDeVie)
         {
+            //Debug.Log("max Point de vie lol");
             pointDeVie = maxPointDeVie;
         }
-        pointDeVie = nouveauPointDeVie;
+        else
+        {
+            pointDeVie = nouveauPointDeVie;
+        }
     }
 
     public void SetMaxPointDeVie(int nouveauMaxPointDeVie)
     {
         maxPointDeVie = nouveauMaxPointDeVie;
+        pointDeVie = maxPointDeVie;
     }
 
     public void SetNom(string nouveauNom)
@@ -152,52 +171,22 @@ public class ClassUnite
         this.vitesseAttaque = _vitesseAttaque;
     }
 
-    //-----//
-    // Constructeur
-
-    public ClassUnite() : this("Inconu",0,0,0,0,0)
+    public void CopyConstructor(ClassUnite u)
     {
-
+        attaque = u.GetAttaque();
+        maxPointDeVie = u.GetMaxPointDeVie();
+        pointDeVie = u.GetPointDeVie();
+        nom = u.GetNom();
+        defence = u.GetDefence();
+        vitesseAttaque = u.GetVitesseAttaque();
+        xp = u.GetXp();
+        mouvementVitesse = u.GetMouvemenetVitesse();
+        level = u.getLevel();
+        xpPourNiveauSuivant = u.GetXpNiveauSuivant();
     }
 
-    public ClassUnite(string _nom,int _MaxPointDeVie,int _attaque,int _defence,int _vitesseAttaque,int _mouvementVitesse)
-    {
-        nom = _nom;
-        maxPointDeVie = _MaxPointDeVie;
-        pointDeVie = _MaxPointDeVie;
-        attaque = _attaque;
-        defence = _defence;
-        mouvementVitesse = _mouvementVitesse;
-        cible = new Vector3(0,0,0);
-        vitesseAttaque = _vitesseAttaque;
-    }
-
-    public ClassUnite(string _nom) : this(_nom, 0, 0,0, 0, 0)
-    {
-
-    }
-
-    public ClassUnite(ClassUnite _autreClassUnite)
-    {
-        maxPointDeVie = _autreClassUnite.GetMaxPointDeVie();
-        pointDeVie = maxPointDeVie;
-        attaque = _autreClassUnite.attaque;
-        defence = _autreClassUnite.defence;
-        mouvementVitesse = _autreClassUnite.mouvementVitesse;
-        vitesseAttaque = _autreClassUnite.vitesseAttaque;
-        xp = _autreClassUnite.xp;
-        xpPourNiveauSuivant = _autreClassUnite.xpPourNiveauSuivant;
-        level = _autreClassUnite.level;
-    }
-
-
-    // ----- // 
     // fonction utilitaire 
 
-    private void ReceiveDmg(GameObject cible)
-    {
-        //this.pointDeVie -= cible.GetComponent<ScriptMonstre>().GetAttaque();
-    }
 
     // ----- //
 }

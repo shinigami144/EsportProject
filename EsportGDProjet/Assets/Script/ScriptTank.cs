@@ -8,12 +8,32 @@ public class ScriptTank : MonoBehaviour
     private ClassUnite unite;
     private void Start()
     {
-        unite = new ClassUnite();
+        unite = gameObject.AddComponent<ClassUnite>();
+        unite.SetNom("Tank");
+        unite.SetAttaque(20);
+        unite.SetDefence(15);
+        unite.SetMaxPointDeVie(105);
+        unite.SetVitesseAttaque(4);
+        unite.SetMouvementVitesse(5);
+        SetMouvementSpeed();
+        
     }
     //fonction qui renvoie les dégats
     public void defenseEpineuse(ScriptMonstre monstre)
     {
         monstre.takeDmgFromTank(unite.GetDefence());
+    }
+
+    public void SetMouvementSpeed()
+    {
+        if (GetComponent<MovementPlayer>())
+        {
+            GetComponent<MovementPlayer>().SetMouvementSpeed(unite.GetMouvemenetVitesse());
+        }
+        if (GetComponent<UnityEngine.AI.NavMeshAgent>())
+        {
+            GetComponent<UnityEngine.AI.NavMeshAgent>().speed = unite.GetMouvemenetVitesse();
+        }
     }
 
     public void GainExperience(int nombredXP)
@@ -30,11 +50,23 @@ public class ScriptTank : MonoBehaviour
     }
 
     //fonction qui taunt
-    public void Taunt(ScriptMonstre monstre)
+    public void Taunt(GameObject monstre)
     {
-        if (Vector3.Distance(this.transform.position, monstre.transform.position) < distDeTaunt)
+        ScriptMonstre  Sm = monstre.GetComponent<ScriptMonstre>();
+        if (Sm)
         {
-            monstre.GetUnite().SetCibleObjet(gameObject);
+            Sm.BeTaunt();
+            Sm.GetUnite().SetCibleObjet(gameObject);
+            Sm.GetUnite().SetCible(gameObject.transform.position);
         }
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.GetComponent<ScriptMonstre>())
+        {
+            collision.gameObject.GetComponent<ScriptMonstre>().Attaquer(gameObject);
+        }
+    }
+
 }

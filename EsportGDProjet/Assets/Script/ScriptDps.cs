@@ -11,7 +11,13 @@ public class ScriptDps : MonoBehaviour
 
     private void Start()
     {
-        unite = new ClassUnite("Hero", 100, 30,5,15,5); 
+        unite = gameObject.AddComponent<ClassUnite>();
+        unite.SetNom("Hero");
+        unite.SetMaxPointDeVie(100);
+        unite.SetAttaque(30);
+        unite.SetDefence(5);
+        unite.SetMouvementVitesse(15);
+        unite.SetVitesseAttaque(5);
     }
 
     public void GainExperience(int nombredXP)
@@ -25,6 +31,17 @@ public class ScriptDps : MonoBehaviour
             unite.SetMouvementVitesse(unite.GetMouvemenetVitesse() + Random.Range(2, 4));
             unite.SetVitesseAttaque(unite.GetVitesseAttaque() + Random.Range(2, 5));
         }
+    }
+
+    public void RecevoirSoin(int soin)
+    {
+        Debug.Log(gameObject.name + " Healed");
+        int nouvelValueHp = unite.GetPointDeVie();
+        if (nouvelValueHp > unite.GetMaxPointDeVie())
+        {
+            nouvelValueHp = unite.GetMaxPointDeVie();
+        }
+        unite.SetPointDeVie(nouvelValueHp);
     }
 
     public void Tirer(Vector3 ouTirer)
@@ -54,5 +71,12 @@ public class ScriptDps : MonoBehaviour
         force = new Vector3(ouTirer.x - transform.position.x, 0, ouTirer.z - transform.position.z);
         p.GetComponent<Rigidbody>().AddForce((ouTirer-transform.position)*50); // reduction au pgcd pour eviter les difference de pousser
         
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.GetComponent<ScriptMonstre>())
+        {
+            collision.gameObject.GetComponent<ScriptMonstre>().Attaquer(gameObject);
+        }
     }
 }

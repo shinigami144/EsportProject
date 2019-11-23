@@ -24,7 +24,7 @@ public class ScriptMouvementEnnemi : MonoBehaviour
     private void MoveToTarget()
     //Fonction qui permet de se diriger vers la cible choisie
     {
-        Vector3 targetVector = agent.GetComponent<ScriptCiblageAutre>().TrouvePositonCible();
+        Vector3 targetVector = GetComponent<ScriptMonstre>().GetUnite().GetCible();
         //Debug.Log("Monstre numero " + GetComponent<ScriptMonstre>().GetUnite().GetNom() + " : " + targetVector); ;
         agent.SetDestination(targetVector);
     }

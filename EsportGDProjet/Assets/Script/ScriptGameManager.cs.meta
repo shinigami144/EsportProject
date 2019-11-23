@@ -7,6 +7,10 @@ MonoImporter:
   - monstre: {fileID: 8200868764348651345, guid: be5f5265f7ed08f42b850a3ce5609b2e,
       type: 3}
   - hero: {fileID: 7989952324710225716, guid: 6891d2f6ce96c8a48b5f6958b6a002af, type: 3}
+  - PrefabProjectille: {fileID: 1476621252572112943, guid: 4e055cb4e451bf24b8fa82570d4b97cd,
+      type: 3}
+  - PrefabPiege: {fileID: 3394253179825078305, guid: c07939943b7bf0e4d8c9266a133fa7c5,
+      type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

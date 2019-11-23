@@ -5,7 +5,7 @@ using UnityEngine;
 public class MovementPlayer : MonoBehaviour
 {
     CharacterController controleJoueur;
-    public float movementSpeed = 5.0f;
+    private float movementSpeed = 5.0f;
     
     private Vector3 movementDirection= Vector3.zero;
 
@@ -27,4 +27,13 @@ public class MovementPlayer : MonoBehaviour
         movementDirection.y -= 10f * Time.deltaTime;
         controleJoueur.Move(movementDirection * Time.deltaTime);
     }
+    public float GetMouvementSpeed()
+    {
+        return movementSpeed;
+    }
+    public void SetMouvementSpeed(float speedM)
+    {
+        movementSpeed = speedM;
+    }
+    
 }
